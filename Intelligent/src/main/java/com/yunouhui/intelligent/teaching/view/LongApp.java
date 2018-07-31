@@ -22,7 +22,6 @@ public class LongApp {
 	private JLabel lblPassword;
 	private JTextField textField_1;
 	private JLabel lblNewLabel_1;
-
 	/**
 	 * Launch the application.
 	 */
