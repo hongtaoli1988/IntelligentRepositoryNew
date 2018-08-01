@@ -4,24 +4,36 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
+import javax.swing.JPasswordField;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Font;
+
 import javax.swing.JButton;
+
+import com.yunpuhui.Intelligent.DAO;
+import com.yunpuhui.Intelligent.base.BaseDAO;
+import com.yunpuhui.Intelligent.dao.AdminDAO;
+import com.yunpuhui.Intelligent.view.MainView;
+
 import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LongApp {
 
 	private JFrame frame;
-	private JTextField textField;
+	private JTextField username;
 	private JLabel lblPassword;
-	private JTextField textField_1;
+	private JPasswordField password;
 	private JLabel lblNewLabel_1;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -58,20 +70,26 @@ public class LongApp {
 		lblNewLabel.setFont(new Font("宋体", Font.PLAIN, 20));
 		
 		
-		textField = new JTextField();
-		textField.setFont(new Font("宋体", Font.PLAIN, 20));
-		textField.setColumns(10);
+		username = new JTextField();
+		username.setFont(new Font("宋体", Font.PLAIN, 20));
+		username.setColumns(10);
 		
 		lblPassword = new JLabel("PassWord");
 		lblPassword.setFont(new Font("宋体", Font.PLAIN, 20));
 		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("宋体", Font.PLAIN, 20));
-		textField_1.setColumns(10);
+		password = new JPasswordField();
+		password.setFont(new Font("宋体", Font.PLAIN, 20));
+		password.setColumns(10);
 		
 		JButton btnNewButton = new JButton("登录");
 		btnNewButton.setFont(new Font("宋体", Font.PLAIN, 20));
 		
+		btnNewButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				check();
+			}
+		});
 		lblNewLabel_1 = new JLabel("智能教鞭客户端");
 		lblNewLabel_1.setFont(new Font("宋体", Font.PLAIN, 22));
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
@@ -86,8 +104,8 @@ public class LongApp {
 						.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE))
 					.addGap(52)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+						.addComponent(username, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+						.addComponent(password, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(77, Short.MAX_VALUE))
 				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 					.addContainerGap(168, Short.MAX_VALUE)
@@ -109,12 +127,12 @@ public class LongApp {
 							.addComponent(lblNewLabel)
 							.addGap(7))
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(username, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGap(4)))
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(24)
-							.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+							.addComponent(password, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(27)
 							.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)))
@@ -123,5 +141,15 @@ public class LongApp {
 					.addContainerGap(47, Short.MAX_VALUE))
 		);
 		frame.getContentPane().setLayout(groupLayout);
+	}
+	private void check() {
+		//AdminDAO adminDAO = (AdminDAO) BaseDAO.getAbilityDAO(DAO.AdminDAO);
+		if ("admin".equals(username.getText()) && "admin".equals(password.getText())) {
+			frame.dispose();
+			new ConnectApp();
+		} else {
+			username.setText("");
+			password.setText("");
+		}
 	}
 }
