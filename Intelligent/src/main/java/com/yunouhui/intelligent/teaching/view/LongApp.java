@@ -17,6 +17,7 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 
+import com.yunouhui.intelligent.teaching.socket.WebsocketClient;
 import com.yunpuhui.Intelligent.DAO;
 import com.yunpuhui.Intelligent.base.BaseDAO;
 import com.yunpuhui.Intelligent.dao.AdminDAO;
@@ -43,6 +44,17 @@ public class LongApp {
 				try {
 					LongApp window = new LongApp();
 					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+			public void run() {
+				try {
+					//释放资源
+					WebsocketClient.getWebSocketClientInstance().close();
+					System.out.println("The JVM Hook is execute");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
