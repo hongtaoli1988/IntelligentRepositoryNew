@@ -20,7 +20,6 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
-		
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -62,6 +61,19 @@
             <version>2.4</version>
             <classifier>jdk15</classifier>
         </dependency>
+        
+        <!-- jna-platform-->
+        <dependency>
+		    <groupId>net.java.dev.jna</groupId>
+		    <artifactId>jna</artifactId>
+		    <version>3.5.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>net.java.dev.jna</groupId>
+		    <artifactId>platform</artifactId>
+		    <version>3.5.1</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
