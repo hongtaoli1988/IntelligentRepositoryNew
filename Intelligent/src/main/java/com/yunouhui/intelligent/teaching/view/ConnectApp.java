@@ -20,23 +20,23 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import org.java_websocket.WebSocket;
 import org.java_websocket.client.WebSocketClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.yunouhui.intelligent.teaching.socket.WebsocketClient;
 
 import java.awt.Font;
 
-import javax.swing.SwingConstants;
-
-import java.awt.Component;
-
 public class ConnectApp {
-
+	private static final Logger logger = LoggerFactory.getLogger(ConnectApp.class);     
 	private JFrame frame;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		logger.info("测试");
+		logger.error("dwdawdadw:{}",1);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -75,7 +75,12 @@ public class ConnectApp {
 			public void actionPerformed(ActionEvent e) {
 				WebSocketClient client = WebsocketClient.getWebSocketClientInstance();
 				while(!client.getReadyState().equals(WebSocket.READYSTATE.OPEN)){
-		            System.out.println("还没有打开");
+					try {
+						Thread.sleep(5000);
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
+		            logger.info("还没有打开");
 		        }
 		        System.out.println("打开了");
 		        btnNewButton.setText("已连接成功。。");
