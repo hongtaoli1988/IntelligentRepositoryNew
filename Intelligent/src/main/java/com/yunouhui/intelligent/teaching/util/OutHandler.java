@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
  
 /**
  * 用于输出命令行主进程的消息线程（必须开启，否则命令行主进程无法正常执行） 重要：该类重写了destroy方法，用于安全的关闭该线程
@@ -15,6 +18,7 @@ import java.io.InputStreamReader;
  
 public class OutHandler extends Thread
 {
+	private static final Logger logger = LoggerFactory.getLogger(OutHandler.class);  
     // 控制线程状态
     volatile boolean status = true;
  
@@ -51,7 +55,7 @@ public class OutHandler extends Thread
  
                 if ((msg = br.readLine()) != null)
                 {
-                    System.out.println(type + "消息：" + msg);
+                	logger.info(type + "消息：" + msg);
                 }
             }
         }

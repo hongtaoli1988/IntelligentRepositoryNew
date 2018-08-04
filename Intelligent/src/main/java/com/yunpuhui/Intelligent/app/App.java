@@ -14,7 +14,7 @@ public class App
     {
     	JConlementService app = new JConlementService();
     	String ffmpegExeResources = app.getFfmpegExeResources();
-    	String screenCom = app.getScreenCom(ffmpegExeResources,"D:\\lihongtaoScreen\\");
+    	String screenCom = app.getScreenCom(ffmpegExeResources,"D:\\lihongtaoScreen\\","");
     	ConcurrentMap<String, Object> push = app.push(screenCom);
     	app.handlerMap.put("1224564", push);
     	try {
