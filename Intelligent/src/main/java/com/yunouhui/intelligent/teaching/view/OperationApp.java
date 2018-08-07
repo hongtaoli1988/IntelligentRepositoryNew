@@ -73,9 +73,11 @@ public class OperationApp {
 		frame.setUndecorated(true);
 		frame.setBackground(new Color(0,0,0,0));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		ImageIcon luzhiImg = new ImageIcon("images/bofang.jpg");// 创建图片对象
-		ImageIcon jietuImg = new ImageIcon("images/bofang.jpg");// 创建图片对象
-		ImageIcon banshuImg = new ImageIcon("images/bofang.jpg");// 创建图片对象
+		JToolBar toolBar = new JToolBar();
+		
+		ImageIcon luzhiImg = new ImageIcon("images/保存.png");// 创建图片对象
+		ImageIcon jietuImg = new ImageIcon("images/保存.png");// 创建图片对象
+		ImageIcon banshuImg = new ImageIcon("images/保存.png");// 创建图片对象
 		JButton luzhiButton = new JButton("录制");
 		ExecutorService executorService = Executors.newFixedThreadPool(3);
 		String screenComFile = "";
@@ -157,32 +159,33 @@ public class OperationApp {
 		banshuButton.setIcon(banshuImg);
 		
 		
-		
-		
-		
+		toolBar.add(luzhiButton);
+		toolBar.add(jieshuButton);
+		toolBar.add(banshuButton);
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(banshuButton, GroupLayout.PREFERRED_SIZE, 206, GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(luzhiButton, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
-							.addGap(110)
-							.addComponent(jieshuButton, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(78, Short.MAX_VALUE))
+					.addComponent(luzhiButton, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+					.addGap(31)
+					.addComponent(jieshuButton, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(260, Short.MAX_VALUE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(18)
+					.addComponent(banshuButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGap(357))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(23)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(luzhiButton, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
-						.addComponent(jieshuButton, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-					.addComponent(banshuButton, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
+						.addComponent(luzhiButton, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
+						.addComponent(jieshuButton, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))
+					.addGap(33)
+					.addComponent(banshuButton, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(120, Short.MAX_VALUE))
 		);
 		frame.getContentPane().setLayout(groupLayout);
 	}
