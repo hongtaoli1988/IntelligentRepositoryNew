@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.UnsupportedEncodingException;
 import java.nio.channels.NotYetConnectedException;
+import java.util.UUID;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -24,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.yunouhui.intelligent.teaching.socket.WebsocketClient;
+import com.yunouhui.intelligent.teaching.utils.SystemConfig;
 
 import java.awt.Font;
 
@@ -35,8 +37,6 @@ public class ConnectApp {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		logger.info("测试");
-		logger.error("dwdawdadw:{}",1);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -62,30 +62,13 @@ public class ConnectApp {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setVisible(true);
-		frame.setBounds(100, 100, 500, 350);
+		frame.setBounds(100, 100, 751, 350);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JLabel lblNewLabel = new JLabel("本机信息");
 		lblNewLabel.setFont(new Font("宋体", Font.PLAIN, 15));
-		
-		JButton btnNewButton = new JButton("连接");
-		
-		btnNewButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				WebSocketClient client = WebsocketClient.getWebSocketClientInstance();
-				while(!client.getReadyState().equals(WebSocket.READYSTATE.OPEN)){
-					try {
-						Thread.sleep(5000);
-					} catch (InterruptedException e1) {
-						e1.printStackTrace();
-					}
-		            logger.info("还没有打开");
-		        }
-		        System.out.println("打开了");
-		        btnNewButton.setText("已连接成功。。");
-			}
-		});
+        JLabel label_13 = new JLabel("连接准备已就绪");
+		label_13.setFont(new Font("宋体", Font.PLAIN, 15));
 		JButton btnNewButton_1 = new JButton("发送");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			@Override
@@ -99,8 +82,8 @@ public class ConnectApp {
 		
 		JLabel lblNewLabel_1 = new JLabel("设备编号");
 		lblNewLabel_1.setFont(new Font("宋体", Font.PLAIN, 14));
-		
-		JLabel label = new JLabel("001");
+		//设备编号
+		JLabel label = new JLabel(SystemConfig.getConfig());
 		label.setFont(new Font("宋体", Font.PLAIN, 14));
 		
 		JLabel lblNewLabel_2 = new JLabel("本机ID");
@@ -109,10 +92,11 @@ public class ConnectApp {
 		JLabel label_1 = new JLabel("密码");
 		label_1.setFont(new Font("宋体", Font.PLAIN, 14));
 		
-		JLabel lblNewLabel_3 = new JLabel("123456");
+		//本机ID
+		JLabel lblNewLabel_3 = new JLabel(SystemConfig.getConfig());
 		lblNewLabel_3.setFont(new Font("宋体", Font.PLAIN, 14));
-		
-		JLabel label_2 = new JLabel("123456");
+		//本次密码
+		JLabel label_2 = new JLabel(UUID.randomUUID().toString().replace("-", "").toLowerCase());
 		label_2.setFont(new Font("宋体", Font.PLAIN, 14));
 		
 		JLabel label_3 = new JLabel("设备连接");
@@ -156,6 +140,8 @@ public class ConnectApp {
 				System.out.println(response);
 			}
 		});
+		
+		
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -163,63 +149,60 @@ public class ConnectApp {
 					.addGap(31)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap())
-						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblNewLabel_2)
-												.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblNewLabel_1))
-											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-												.addGroup(groupLayout.createSequentialGroup()
-													.addGap(11)
-													.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-														.addComponent(label_2, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
-														.addComponent(lblNewLabel_3, GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE))
-													.addPreferredGap(ComponentPlacement.RELATED))
-												.addGroup(groupLayout.createSequentialGroup()
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(label, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-													.addGap(22))))
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(btnNewButton_1)
-											.addPreferredGap(ComponentPlacement.RELATED)))
-									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
-												.addComponent(label_6, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE))
-											.addGap(30)
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(label_5, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
-												.addComponent(label_7, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE)))
-										.addGroup(groupLayout.createSequentialGroup()
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(label_10, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
-												.addComponent(label_9, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE))
-											.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(label_11, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE)
-												.addComponent(label_12, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE))
-											.addGap(2))
-										.addComponent(label_8, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(label_3, GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-										.addComponent(button, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)))
-								.addComponent(lblNewLabel))
-							.addGap(177))))
+										.addComponent(lblNewLabel_2)
+										.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblNewLabel_1))
+									.addGap(11)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(label_2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+											.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+												.addPreferredGap(ComponentPlacement.UNRELATED)
+												.addComponent(label, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+											.addComponent(lblNewLabel_3, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 162, GroupLayout.PREFERRED_SIZE))))
+								.addComponent(btnNewButton_1)
+								.addComponent(label_13, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE))
+							.addGap(90)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(button, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+									.addGroup(groupLayout.createSequentialGroup()
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+											.addComponent(label_10, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
+											.addComponent(label_9, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+											.addComponent(label_11, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE)
+											.addComponent(label_12, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE))
+										.addGap(2))
+									.addGroup(groupLayout.createSequentialGroup()
+										.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
+										.addGap(30)
+										.addComponent(label_5, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE))
+									.addComponent(label_3, GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+									.addGroup(groupLayout.createSequentialGroup()
+										.addComponent(label_6, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
+										.addGap(30)
+										.addComponent(label_7, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE))
+									.addComponent(label_8, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+						.addComponent(lblNewLabel))
+					.addGap(129))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(32)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel)
-						.addComponent(label_3, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
-					.addGap(36)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(32)
+							.addComponent(lblNewLabel)
+							.addGap(36))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(label_3, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
+							.addGap(28)))
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_1)
 						.addComponent(label)
@@ -236,24 +219,24 @@ public class ConnectApp {
 						.addComponent(label_1)
 						.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
 						.addComponent(label_8, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(label_9, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
-								.addComponent(label_12, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(label_12, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+								.addComponent(label_9, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(label_10, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
 								.addComponent(label_11, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
-							.addGap(52))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(button)
+							.addGap(19))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnNewButton_1)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnNewButton)
-								.addComponent(button))
-							.addGap(26))))
+							.addGap(18)
+							.addComponent(label_13, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
+							.addGap(32))))
 		);
 		frame.getContentPane().setLayout(groupLayout);
 	}

@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -17,6 +18,11 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 
+import org.java_websocket.WebSocket;
+import org.java_websocket.client.WebSocketClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.yunouhui.intelligent.teaching.socket.WebsocketClient;
 import com.yunpuhui.Intelligent.DAO;
 import com.yunpuhui.Intelligent.base.BaseDAO;
@@ -28,12 +34,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LongApp {
-
+	private static final Logger logger = LoggerFactory.getLogger(LongApp.class); 
 	private JFrame frame;
 	private JTextField username;
 	private JLabel lblPassword;
 	private JPasswordField password;
 	private JLabel lblNewLabel_1;
+	private JButton btnNewButton;
 	
 	/**
 	 * Launch the application.
@@ -93,7 +100,7 @@ public class LongApp {
 		password.setFont(new Font("宋体", Font.PLAIN, 20));
 		password.setColumns(10);
 		
-		JButton btnNewButton = new JButton("登录");
+		btnNewButton = new JButton("登录");
 		btnNewButton.setFont(new Font("宋体", Font.PLAIN, 20));
 		
 		btnNewButton.addActionListener(new ActionListener() {
@@ -105,21 +112,9 @@ public class LongApp {
 		lblNewLabel_1 = new JLabel("智能教鞭客户端");
 		lblNewLabel_1.setFont(new Font("宋体", Font.PLAIN, 22));
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
-		groupLayout.setAutoCreateGaps(true);
-		groupLayout.setAutoCreateContainerGaps(true);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(100)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE))
-					.addGap(52)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(username, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-						.addComponent(password, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(77, Short.MAX_VALUE))
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 					.addContainerGap(168, Short.MAX_VALUE)
 					.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
 					.addGap(89))
@@ -127,6 +122,16 @@ public class LongApp {
 					.addGap(101)
 					.addComponent(lblNewLabel)
 					.addGap(303))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(100)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(btnNewButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(lblPassword, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
+					.addGap(57)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(username, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+						.addComponent(password, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(77, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -134,11 +139,11 @@ public class LongApp {
 					.addGap(53)
 					.addComponent(lblNewLabel_1)
 					.addPreferredGap(ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblNewLabel)
 							.addGap(7))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(username, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGap(4)))
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
@@ -150,16 +155,29 @@ public class LongApp {
 							.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)))
 					.addGap(29)
 					.addComponent(btnNewButton)
-					.addContainerGap(47, Short.MAX_VALUE))
+					.addGap(47))
 		);
+		groupLayout.setAutoCreateGaps(true);
+		groupLayout.setAutoCreateContainerGaps(true);
 		frame.getContentPane().setLayout(groupLayout);
 	}
 	private void check() {
 		//AdminDAO adminDAO = (AdminDAO) BaseDAO.getAbilityDAO(DAO.AdminDAO);
 		if ("admin".equals(username.getText()) && "admin".equals(password.getText())) {
+			WebSocketClient client = WebsocketClient.getWebSocketClientInstance();
+			while(!client.getReadyState().equals(WebSocket.READYSTATE.OPEN)){
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+	            logger.info("还没有打开");
+	        }
+			logger.info("已打开");
 			frame.dispose();
 			new ConnectApp();
 		} else {
+			JOptionPane.showMessageDialog(frame, "用户名或密码错误请重新输入", "错误",JOptionPane.WARNING_MESSAGE);
 			username.setText("");
 			password.setText("");
 		}
