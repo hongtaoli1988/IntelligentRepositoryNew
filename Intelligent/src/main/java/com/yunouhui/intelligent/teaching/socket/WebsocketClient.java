@@ -3,15 +3,20 @@ package com.yunouhui.intelligent.teaching.socket;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import javax.swing.JOptionPane;
+
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft_6455;
 import org.java_websocket.handshake.ServerHandshake;
+
+import com.yunouhui.intelligent.teaching.view.ConnectApp;
 /**
  * Created by jack on 2017/10/25.
  */
 public class WebsocketClient {
 	private WebsocketClient(){}
     public static volatile WebSocketClient client;
+    public static ConnectApp connectApp = new ConnectApp();
     public static WebSocketClient getWebSocketClientInstance(){
     	 if(client==null){
              synchronized (WebsocketClient.class){
@@ -26,6 +31,9 @@ public class WebsocketClient {
                              @Override
                              public void onMessage(String s) {
                                  System.out.println("客户端收到消息"+s);
+                                 Object[] options = {"确认","取消"};
+                 				 int response=JOptionPane.showOptionDialog(null, "设备001正在连接此设备", "选项对话框标题",JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                 				
                              }
                              @Override
                              public void onClose(int i, String s, boolean b) {
@@ -45,9 +53,6 @@ public class WebsocketClient {
              }
          }
          return client;
-    }
-    public static void main(String[] args) {
-    	WebSocketClient webSocketClientInstance = WebsocketClient.getWebSocketClientInstance();
     }
     public static void send(byte[] bytes){
         client.send(bytes);
