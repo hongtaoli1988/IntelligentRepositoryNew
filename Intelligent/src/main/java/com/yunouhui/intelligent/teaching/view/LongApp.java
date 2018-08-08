@@ -175,7 +175,7 @@ public class LongApp {
 	        }
 			logger.info("已打开");
 			frame.dispose();
-			new ConnectApp();
+			WebsocketClient.connectApp.getFrame().setVisible(true);
 		} else {
 			JOptionPane.showMessageDialog(frame, "用户名或密码错误请重新输入", "错误",JOptionPane.WARNING_MESSAGE);
 			username.setText("");
