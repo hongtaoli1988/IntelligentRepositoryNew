@@ -17,6 +17,7 @@ public class AppConstants {
 	public static final String JDBC_PASSWORD = "******";
 	public static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 
+
 	// student field
 	public static final String STUDENT_NAME = "姓名";
 	public static final String STUDENT_SNO = "学号";
