@@ -8,8 +8,8 @@ import com.yunouhui.intelligent.teaching.util.JConlementService;
  * Hello world!
  *
  */
-public class App 
-{
+public class App {
+	public static final String STUDENT_NAME_TEST_ONE = "姓名";
     public static void main( String[] args )
     {
     	JConlementService app = new JConlementService();

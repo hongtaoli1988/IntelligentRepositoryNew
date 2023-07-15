@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class SocketClient {
+	public static final String STUDENT_NAME_TEST_TWO = "姓名";
 	public int port = 8080;
 	Socket socket = null;
 	public static void main(String[] args) {
